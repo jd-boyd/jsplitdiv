@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script type='text/javascript'
+  src='http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js'> </script>
+
+ <STYLE type="text/css">
+div.splitter { position: absolute; padding: 0px; margin: 0px; width: 5px;
+border: 1px solid gray; background: gray;}
+
+#div.s_active { background: blue;}
+
+div.split_container {width: 100%; border: 1px solid gray;}
+div.split_area {border: 1px solid gray;}
+
+div.split_head {clear: both; border: 1px solid gray;}
+div.split_foot {clear: both; border: 1px solid gray;}
+
+div #left_area {width: 150; height: 400px; float: left;}
+div #right_area {width: 440; height: 400px; float: right;}
+</STYLE>
+
+<script type='text/javascript' src='jsplitdiv.js'>
+</script>
+
+</head>
+<body>
+<h2>Split container below</h2>
+
+<div class="split_container" id="main_cont">
+<div class="split_area" id="left_area"><p>Stuff here</p></div>
+<div class="split_area" id="right_area"><p>More Stuff Here</p></div>
+</div> <!-- split container-->
+
+<h2>Foot Text</h2>
+<p>something or other</p>
+</body>
+</html>
+
