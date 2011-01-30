@@ -13,14 +13,20 @@ border: 1px solid gray; background: gray;}
 div.split_container {width: 100%; border: 1px solid gray;}
 div.split_area {border: 1px solid gray;}
 
-div.split_head {clear: both; border: 1px solid gray;}
-div.split_foot {clear: both; border: 1px solid gray;}
-
 div #left_area {width: 150; height: 400px; float: left;}
 div #right_area {width: 440; height: 400px; float: right;}
 </STYLE>
 
 <script type='text/javascript' src='jsplitdiv.js'>
+</script>
+
+<script type='text/javascript'>
+<!--
+$(window).load(function(event) {
+    var split = new Splitter('div#main_cont', 'div#left_area', "div#right_area");
+    }
+);
+-->
 </script>
 
 </head>

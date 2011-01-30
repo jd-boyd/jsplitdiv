@@ -9,84 +9,114 @@ function textselect( bool )
 	.css("MozUserSelect", bool ? "" : "none" );
 };
 
-var container_width;
+function Splitter(main_sel, left_sel, right_sel) {
+    this.dragging=false;
+    this.container_sel=null;
+    this.container_left_sel=null;
+    this.container_right_sel=null;
+    this.container_width=0;
+    this.split_percent=0.30;
+    this.split_pos=0;
 
-var split_percent = 0.30;
-var split_pos = 0;
+    this.container_resize=function()
+    {
+	var w = $(this.container_sel).innerWidth();
+	this.container_width = w;
+	this.split_pos = w * this.split_percent;
+    };
+    this.update=function()
+    {
+	var sp = this.split_pos;
+	$(this.container_left_sel).width(sp - 5);
+	$(this.container_right_sel).width((this.container_width - sp) +1 );
+	$('.splitter').css( {'left': (this.split_pos) + "px" });
+	this.split_percent = sp / this.container_width;
+    };
 
-function update_split()
-{
-  $('#left_area').width(split_pos - 5);
-  $('#right_area').width((container_width - split_pos) +1 );
-  $('.splitter').css( {'left': (split_pos) + "px" });
-  split_percent = split_pos / container_width;
-}
+    this.container_sel = main_sel;
+    this.container_left_sel = main_sel + " " + left_sel;
+    this.container_right_sel = main_sel + " " + right_sel;
+    
+    //Preserve pointer to this object that can be used in methods attached
+    //to other objects where this would refer to that other object.
+    var t = this;
 
-function calc_resize()
-{
-    var w = $('#main_cont').innerWidth();
-    container_width = w;
-    //$('#sz_info').text("Bob " + container_width);
-
-    split_pos = container_width * split_percent;
+    $(this.container_sel).append("<div class='splitter'></div>");
+    
+    $(this.container_sel + ' div.splitter').hover(
+	function() {  //Enter
+	    $(this).toggleClass("s_active");
+	},
+	function() {//remove
+	    $(this).toggleClass("s_active");
+	}); 
+    
+    $(this.container_sel + ' div.splitter').mousedown(function(eo) { 
+	t.dragging=true; 
+	textselect(false);
+    }); 
+    
+    $(document).mouseup(function() { 
+	t.dragging=false;   
+	//alert('up');
+	textselect(true);   
+    });
+    
+    $(document).mousemove(function(e){
+	if (t.dragging)
+	{
+	    //alert('drag');
+	    t.split_pos = e.pageX;
+	    //console.log("split_pos: " + split_pos);
+	    t.update();
+	}
+    }); 
+    
+    $(this.container_sel + ' div.splitter').height(Math.max($('#left_area').height(), $('#right_area').height()) +'px');
+    
+    $(window).resize(function() { this.container_resize(); this.update(); });
+    
+    this.container_resize();
+    this.update();
+    
+    return true;
 };
 
-$(window).resize(function() { calc_resize(); update_split(); });
+//You need an anonymous function to wrap around your function to avoid conflict
+(function($){
+    //Attach this new method to jQuery
+    $.fn.extend({ 
 
-var offX=0;
-var dragging = false;
+	//This is where you write your plugin's name
+	pluginname: function(options) {
 
-function setupSplitter()
-{
-  $('.split_container').append("<div class='splitter'></div>");
+	    // toggles text selection attributes ON (true) or OFF (false)
+	    // Alas, this causes jquery to spit out a TypeError in Chrome,
+	    // but then works correctly anyway.
+	    function textselect( bool )
+	    { 
+		$( document )[ bool ? "unbind" : "bind" ]("selectstart", function(){return false;} )
+		    .attr("unselectable", bool ? "off" : "on" )
+		    .css("MozUserSelect", bool ? "" : "none" );
+	    };
+	    
 
-  $('.splitter').hover(
-    function() {  //Enter
-      $(this).toggleClass("s_active");
-    },
-    function() {//remove
-      $(this).toggleClass("s_active");
-    }); 
+	    var localData = {
+		dragging: false,
+		container_width: 0,
+		split_percent: 0.30,
+		split_pos: 0
+	    };
 
-  $('.splitter').mousedown(function(eo) { 
-      dragging=true; 
-      //offX=eo.pageX-split_pos;
-      offX=0;
-      textselect(false);
-  });
+	    //Iterate over the current set of matched elements
+	    return this.each(function() {
 
-  $(document).mouseup(function() { 
-      dragging=false;   
-      textselect(true);   
-  });
+		//code to be inserted here
 
-  $(document).mousemove(function(e){
-      //$('#mouse_info').text(e.pageX +', '+ e.pageY);
-      if (dragging)
-       {
-           split_pos = e.pageX + offX;
-	   console.log("split_pos: " + split_pos);
-           update_split();
-       }
-   }); 
-
-  $('.splitter').height(Math.max($('#left_area').height(), $('#right_area').height()) +'px');
-
-  calc_resize();
-  update_split();
-}
-
-$(window).load(function(event)
-{
- setupSplitter();
-}
-
-);
-
-(function( $ ){
-  $.fn.myPlugin = function() {
-  
-    // Do your awesome plugin stuff here
-
-  };
-})( jQuery );
+	    });
+	}
+    });
+    //pass jQuery to the function, 
+    //So that we will able to use any valid Javascript variable name 
+    //to replace "$" SIGN. But, we'll stick to $ (I like dollar sign: ) )
+})(jQuery);
