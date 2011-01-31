@@ -1,11 +1,29 @@
-This isn't really a plugin yet, and it is probably best not to use it until 
-it has been converted into a proper plugin.
+This isn't really a plugin yet.  It is usable, but I'm sure the API is in flux. 
 
+USAGE
+
+Basic usage.  
+
+In the html head, include jquery and the jsplitdiv script.
+
+Create a div (the container) that contains exactly two more divs.  It
+is important that outer div by styled with a width and height.  For
+example:
+
+<div id="my_container" style='width: 60%; height:100px'>
+<div id="left_area"><p>Stuff here</p></div>
+<div id="right_area"><p>More Stuff Here</p></div>
+</div>
+
+Then, in a script section, insert a line like:
+
+$(window).load(function(event){new Splitter('div#my_container', '#left_area', "#right_area");};
+
+You could assign the return value from the new keyword to a variable,
+but currently you can't really do anything with that, so you might as
+well toss it away.
 
 TODO:
 
-Automatically add the float: left/right to the left/right sels:
-  div #left_area {width: 150; height: 400px; float: left;}
-  div #right_area {width: 440; height: 400px; float: right;}
-
 convert Splitter object to jquery plugin
+
