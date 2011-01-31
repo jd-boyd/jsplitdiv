@@ -5,16 +5,19 @@
   src='http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js'> </script>
 
  <STYLE type="text/css">
-div.splitter { position: absolute; padding: 0px; margin: 0px; width: 5px;
+div#main_cont div.splitter { padding: 0px; margin: 0px; width: 5px;
 border: 1px solid gray; background: gray;}
 
-#div.s_active { background: blue;}
+div#alt_cont div.splitter { padding: 0px; margin: 0px; width: 2px;
+border: 1px solid gray; background: gray;}
 
-div.split_container {width: 100%; border: 1px solid gray;}
-div.split_area {border: 1px solid gray;}
+//#div.s_active { background: blue;}
 
-div #left_area {width: 150; height: 400px; float: left;}
-div #right_area {width: 440; height: 400px; float: right;}
+div.split_container {border: 1px solid gray}
+
+div#main_cont {width: 100%;  height:100px}
+//div#alt_cont {width: 60%; height:100px}
+
 </STYLE>
 
 <script type='text/javascript' src='jsplitdiv.js'>
@@ -23,7 +26,8 @@ div #right_area {width: 440; height: 400px; float: right;}
 <script type='text/javascript'>
 <!--
 $(window).load(function(event) {
-    var split = new Splitter('div#main_cont', 'div#left_area', "div#right_area");
+   var split = new Splitter('div#main_cont', 'div#left_area', "div#right_area");
+   new Splitter('div#alt_cont', '#left_area', "#right_area");
     }
 );
 -->
@@ -34,8 +38,14 @@ $(window).load(function(event) {
 <h2>Split container below</h2>
 
 <div class="split_container" id="main_cont">
-<div class="split_area" id="left_area"><p>Stuff here</p></div>
-<div class="split_area" id="right_area"><p>More Stuff Here</p></div>
+<div id="left_area"><p>Stuff here</p></div>
+<div id="right_area"><p>More Stuff Here</p></div>
+</div> <!-- split container-->
+
+<div class="split_container" id="alt_cont" style='width: 60%; height:100px'>
+<div id="left_area"><p>Stuff here</p></div>
+<div id="right_area"> More Yes There is.
+</div>
 </div> <!-- split container-->
 
 <h2>Foot Text</h2>
