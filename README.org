@@ -10,14 +10,14 @@ Create a div (the container) that contains exactly two more divs.  It
 is important that outer div by styled with a width and height.  For
 example:
 
-<div id="my_container" style='width: 60%; height:100px'>
-<div id="left_area"><p>Stuff here</p></div>
-<div id="right_area"><p>More Stuff Here</p></div>
-</div>
+: <div id="my_container" style='width: 60%; height:100px'>
+: <div id="left_area"><p>Stuff here</p></div>
+: <div id="right_area"><p>More Stuff Here</p></div>
+: </div>
 
 Then, in a script section, insert a line like:
 
-$(window).load(function(event){new Splitter('div#my_container', '#left_area', "#right_area");};
+: $(window).load(function(event){new Splitter('div#my_container', '#left_area', "#right_area");};
 
 You could assign the return value from the new keyword to a variable,
 but currently you can't really do anything with that, so you might as
