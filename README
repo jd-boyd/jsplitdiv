@@ -23,7 +23,16 @@ You could assign the return value from the new keyword to a variable,
 but currently you can't really do anything with that, so you might as
 well toss it away.
 
+COMPATIBILITY:
+
+This code has been tested in IE 8 and Chrome.
+
 TODO:
+- convert Splitter object to jquery plugin
+- Test in Firefox and safari, maybe older IE.
+- Add vertical splitting.
+- Add limits on how far the splitter can move
 
-convert Splitter object to jquery plugin
-
+BUG/DESIGN LIMITATIONS:
+- You can't embed a split inside another split.  
+  I'm not sure how useful that would be anyway.
