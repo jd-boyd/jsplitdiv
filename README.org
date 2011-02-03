@@ -1,6 +1,6 @@
 This isn't really a plugin yet.  It is usable, but I'm sure the API is in flux. 
 
-USAGE
+* USAGE
 
 Basic usage.  
 
@@ -23,16 +23,16 @@ You could assign the return value from the new keyword to a variable,
 but currently you can't really do anything with that, so you might as
 well toss it away.
 
-COMPATIBILITY:
+* COMPATIBILITY:
 
 This code has been tested in IE 8 and Chrome.
 
-TODO:
+* TODO:
 - convert Splitter object to jquery plugin
 - Test in Firefox and safari, maybe older IE.
 - Add vertical splitting.
 - Add limits on how far the splitter can move
 
-BUG/DESIGN LIMITATIONS:
+* BUG/DESIGN LIMITATIONS:
 - You can't embed a split inside another split.  
   I'm not sure how useful that would be anyway.
