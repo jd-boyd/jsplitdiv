@@ -90,67 +90,78 @@ function Splitter(main_sel, left_sel, right_sel)
 
 //You need an anonymous function to wrap around your function to avoid conflict
 (function($){
+		var methods = {
+				container_resize: function(t)
+				{
+						var w = t.innerWidth();
+						t.data('container_width', w);
+						t.data('split_pos', w * t.data('split_percent'));
+				},
+
+				update: function(t)
+				{
+						var sp = t.data('split_pos');
+						var left = t.data('left');
+						var right = t.data('right');
+						var cw = t.data('container_width');
+
+						$(left,t).width(sp - 5);
+						$(right, t).width((cw - sp) + 1);
+						$('div.splitter', t).css( {'left': (sp) + "px" });
+						t.data('split_percent', sp / cw);
+				}};
+		
     //Attach this new method to jQuery
     $.fn.extend({ 
+				
+				//This is where you write your plugin's name
+				splitdiv: function(left, right, options) {
+						// toggles text selection attributes ON (true) or OFF (false)
+						// Alas, this causes jquery to spit out a TypeError in Chrome,
+						// but then works correctly anyway.
+						function textselect( bool )
+						{ 
+								$( document )
+								[ bool ? "unbind" : "bind" ]("selectstart", function(){
+										return false;} )
+										.attr("unselectable", bool ? "off" : "on" )
+										.css("MozUserSelect", bool ? "" : "none" );
+						};
+						
+						var localData = {
+								split_percent: 0.30,
+								split_pos: 0
+						};
+						if (options) $.extend(localData, options);
+						
+						//Iterate over the current set of matched elements
+						return this.each(function() {
+								var t = $(this);
+								var o = localData;
+								//alert('B');
+								//code to be inserted here
+								
+								t.data('split_percent', localData['split_percent']);
+								t.data('split_pos', localData['split_pos']);
+								t.data('left', left);
+								t.data('right', right);
 
-	//This is where you write your plugin's name
-	splitdiv: function(options) {
-	    // toggles text selection attributes ON (true) or OFF (false)
-	    // Alas, this causes jquery to spit out a TypeError in Chrome,
-	    // but then works correctly anyway.
-	    function textselect( bool )
-	    { 
-		$( document )[ bool ? "unbind" : "bind" ]("selectstart", function(){return false;} )
-		    .attr("unselectable", bool ? "off" : "on" )
-		    .css("MozUserSelect", bool ? "" : "none" );
-	    };
-
-	    var localData = {
-		left: '#left',
-		right: '#right',
-		dragging: false,
-		container_width: 0,
-		split_percent: 0.30,
-		split_pos: 0
-	    };
-	    if (options) $.extend(localData, options);
-
-	    //Iterate over the current set of matched elements
-	    return this.each(function() {
-		var t = $(this);
-		var o = localData;
-		//alert('B');
-		//code to be inserted here
-
-		var container_resize=function()
-		{
-		    var w = t.innerWidth();
-		    $(this).data('container_width', w);
-		    $(this).data('split_pos', w * this.split_percent);
-		};
-
-		var update=function()
-		{
-		    var sp = $(this).data('split_pos');
-		    $(o['left'],t).width(sp - 5);
-		    $(this.container_right_sel).width((this.container_width - sp) + 1);
-		    $(this.splitter_sel).css( {'left': (this.split_pos) + "px" });
-		    this.split_percent = sp / this.container_width;
-		};
-
-		$(this).append("<div class='splitter s_passive'></div>");
-
-		$('div.splitter', t).css('position', 'absolute');
-		$(o['left'], t).css("float", "left");
-		$(o['right'], t).css("float", "right");
-
-		var container_height = t.height();
-		
-		$('div.splitter', t).height(container_height);
-  	$(o['left'], t).height(container_height);
-		$(o['right'], t).height(container_height);
-	    });
-	}
+								$(this).append("<div class='splitter s_passive'></div>");
+								
+								$('div.splitter', t).css('position', 'absolute');
+								$(left, t).css("float", "left");
+								$(right, t).css("float", "right");
+								
+								var container_height = t.height();
+								
+								$('div.splitter', t).height(container_height);
+  							$(left, t).height(container_height);
+								$(right, t).height(container_height);
+								
+								methods.container_resize(t);
+								methods.update(t);
+						});
+				}
     });
     //pass jQuery to the function, 
     //So that we will able to use any valid Javascript variable name 
