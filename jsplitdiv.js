@@ -158,6 +158,17 @@ function Splitter(main_sel, left_sel, right_sel)
   							$(left, t).height(container_height);
 								$(right, t).height(container_height);
 								
+								$('div.splitter',t).hover(
+										function() {  //Enter
+												$(this).toggleClass("s_active");
+												$(this).toggleClass("s_passive");
+										},
+										function() {//remove
+												$(this).toggleClass("s_active");
+												$(this).toggleClass("s_passive");
+										}); 
+
+
 								methods.container_resize(t);
 								methods.update(t);
 						});

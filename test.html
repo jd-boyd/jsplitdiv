@@ -9,7 +9,7 @@ div#main_cont div.splitter { padding: 0px; margin: 0px; width: 5px;
 border: 1px solid gray;}
 
 div#alt_cont div.splitter { padding: 0px; margin: 0px; width: 2px;
-border: 1px solid gray; background: gray;}
+border: 1px solid gray;}
 
 div.s_active { background: blue;}
 div.s_passive { background: grey;}
@@ -28,7 +28,7 @@ div#main_cont {width: 100%;  height:100px}
 $(window).load(function(event) {
    var split = new Splitter('div#main_cont', 'div#left_area', "div#right_area");
    //new Splitter('div#alt_cont', '#left_area', "#right_area");
-   $('div#alt_cont').splitdiv( {left: '#left_area', right: "#right_area"} );
+   $('div#alt_cont').splitdiv( '#left_area', "#right_area" );
     }
 );
 </script>
