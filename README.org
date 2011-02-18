@@ -28,6 +28,6 @@ This code has been tested in IE 8 and Chrome.
 - Add vertical splitting.
 - Add limits on how far the splitter can move
 * BUG/DESIGN LIMITATIONS:
-** You can't embed a split inside another split.  
+- You can't embed a split inside another split.  
    I'm not sure how useful that would be anyway.  Definitely useful if
    I make vertical splitters work.
