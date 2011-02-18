@@ -8,7 +8,7 @@
 div#main_cont div.splitter { padding: 0px; margin: 0px; width: 5px;
 border: 1px solid gray;}
 
-div#alt_cont div.splitter { padding: 0px; margin: 0px; width: 2px;
+div#alt_cont div.splitter { padding: 0px; margin: 0px; width: 5px;
 border: 1px solid gray;}
 
 div.s_active { background: blue;}
@@ -26,8 +26,7 @@ div#main_cont {width: 100%;  height:100px}
 
 <script type='text/javascript'>
 $(window).load(function(event) {
-   var split = new Splitter('div#main_cont', 'div#left_area', "div#right_area");
-   //new Splitter('div#alt_cont', '#left_area', "#right_area");
+   $('div#main_cont').splitdiv( '#left_area', "#right_area" );
    $('div#alt_cont').splitdiv( '#left_area', "#right_area" );
     }
 );
