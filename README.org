@@ -1,5 +1,3 @@
-This isn't really a plugin yet.  It is usable, but I'm sure the API is in flux. 
-
 * USAGE
 
 Basic usage.  
@@ -17,22 +15,19 @@ example:
 
 Then, in a script section, insert a line like:
 
-: $(window).load(function(event){new Splitter('div#my_container', '#left_area', "#right_area");};
-
-You could assign the return value from the new keyword to a variable,
-but currently you can't really do anything with that, so you might as
-well toss it away.
+: $(window).ready(function(event){
+:   $('div#my_container').splitdiv( '#left_area', "#right_area" );
+: });
 
 * COMPATIBILITY:
 
 This code has been tested in IE 8 and Chrome.
 
 * TODO:
-- convert Splitter object to jquery plugin
 - Test in Firefox and safari, maybe older IE.
 - Add vertical splitting.
 - Add limits on how far the splitter can move
-
 * BUG/DESIGN LIMITATIONS:
-- You can't embed a split inside another split.  
-  I'm not sure how useful that would be anyway.
+** You can't embed a split inside another split.  
+   I'm not sure how useful that would be anyway.  Definitely useful if
+   I make vertical splitters work.
